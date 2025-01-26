@@ -1,16 +1,14 @@
 name = "short-link-generator"
-main = "worker.js"  # 指定 Worker 脚本的路径
+main = "worker.js"  # 你的 Worker 脚本路径，注意这里的 Worker 脚本会放在 `functions` 文件夹下
 type = "javascript"
 
 [build]
   command = "npm install && npm run build"
-  cwd = "."
-  directory = "dist" # 输出目录（如果有构建步骤）
+  directory = "dist"  # 你构建后的静态文件目录（如果有）
 
-[env.production]
-  workers_dev = true
-  compatibility_flags = []
+[[env.production]]
+  workers_dev = false  # 这里是用 Pages 处理的，不是 `workers_dev`
 
 [[env.production.kvs]]
-binding = "LINKS"
-id = "LINKS"
+  binding = "LINKS"
+  id = "LINKS"  # 配置你的 KV 存储
