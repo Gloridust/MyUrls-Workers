@@ -1,0 +1,31 @@
+{
+  "name": "myurls-workers",
+  "version": "1.0.0",
+  "description": "A URL Shortener created using Cloudflare Pages and Workers",
+  "main": "functions/worker.js",
+  "dependencies": {
+    "wrangler": "^3.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "wrangler pages dev . --d1=short",
+    "clear": "kill -9 $(pgrep workerd)",
+    "d1": "wrangler d1 execute short --local --file=./short.sql"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiko923/MyUrls-Workers.git"
+  },
+  "keywords": [
+    "short",
+    "url",
+    "cloudflare",
+    "worker"
+  ],
+  "author": "kiko923",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kiko923/MyUrls-Workers/issues"
+  },
+  "homepage": "https://github.com/kiko923/MyUrls-Workers#readme"
+}
