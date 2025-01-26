@@ -1,0 +1,16 @@
+name = "short-link-generator"
+main = "worker.js"  # 指定 Worker 脚本的路径
+type = "javascript"
+
+[build]
+  command = "npm install && npm run build"
+  cwd = "."
+  directory = "dist" # 输出目录（如果有构建步骤）
+
+[env.production]
+  workers_dev = true
+  compatibility_flags = []
+
+[[env.production.kvs]]
+binding = "LINKS"
+id = "LINKS"
