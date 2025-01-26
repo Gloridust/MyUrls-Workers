@@ -8,7 +8,7 @@ function generateRandomSuffix(length) {
   return result;
 }
 
-async function handleRequest(request) {
+async function handleRequest(request, LINKS) {
   const url = new URL(request.url);
   let targetUrl;
   let customSuffix;
@@ -80,7 +80,7 @@ async function handleRequest(request) {
   });
 }
 
-async function handleRedirect(request) {
+async function handleRedirect(request, LINKS) {
   const url = new URL(request.url);
   const suffix = url.pathname.split('/')[1];  // 获取短链接的后缀
 
@@ -94,21 +94,24 @@ async function handleRedirect(request) {
   }
 }
 
-// 处理不同的请求路径
-addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
-  
-  if (url.pathname === '/') {
-    // 根路径的请求
-    event.respondWith(fetch(new Request('https://kiko923.github.io/MyUrls/public/')));
-  } else if (url.pathname === '/short') {
-    // 创建短链接
-    event.respondWith(handleRequest(event.request));
-  } else if (url.pathname.startsWith('/')) {
-    // 跳转到原始链接（假设以 '/' 开头的路径是需要跳转的）
-    event.respondWith(handleRedirect(event.request));
-  } else {
-    // 其他路径返回 404
-    event.respondWith(new Response('Not Found', { status: 404 }));
+// 修改事件监听器以适配 Pages
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    
+    if (url.pathname === '/') {
+      // 直接返回 index.html
+      return new Response(INDEX_HTML, {
+        headers: { 'Content-Type': 'text/html' },
+      });
+    } else if (url.pathname === '/short') {
+      // 创建短链接，传入 env.LINKS
+      return handleRequest(request, env.LINKS);
+    } else if (url.pathname.startsWith('/')) {
+      // 跳转到原始链接，传入 env.LINKS
+      return handleRedirect(request, env.LINKS);
+    } else {
+      return new Response('Not Found', { status: 404 });
+    }
   }
-});
+};

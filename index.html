@@ -78,8 +78,8 @@
           data.append("longUrl", btoa(this.longUrl));
           data.append("shortKey", this.shortUrl.indexOf('http') < 0 ? this.shortUrl : '');
           axios.post('/short', data, {
-            header: {
-              "Content-Type": "application/form-data; charset=utf-8"
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
             }
           })
             .then(res => {
