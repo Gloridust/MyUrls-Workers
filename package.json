@@ -2,7 +2,7 @@
   "name": "myurls-workers",
   "version": "1.0.0",
   "description": "A URL Shortener created using Cloudflare Pages and Workers",
-  "main": "functions/worker.js",
+  "main": "index.js",
   "dependencies": {
     "wrangler": "^3.5.1"
   },
