@@ -100,15 +100,15 @@ export default {
     const url = new URL(request.url);
     
     if (url.pathname === '/') {
-      // 直接返回 index.html
+      // 返回静态页面
       return new Response(INDEX_HTML, {
         headers: { 'Content-Type': 'text/html' },
       });
     } else if (url.pathname === '/short') {
-      // 创建短链接，传入 env.LINKS
+      // 创建短链接
       return handleRequest(request, env.LINKS);
     } else if (url.pathname.startsWith('/')) {
-      // 跳转到原始链接，传入 env.LINKS
+      // 跳转到原始链接
       return handleRedirect(request, env.LINKS);
     } else {
       return new Response('Not Found', { status: 404 });
