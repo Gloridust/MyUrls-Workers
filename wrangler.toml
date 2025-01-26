@@ -1,6 +1,0 @@
-name = "MYURLS-WK"
-type = "javascript"
-
-[env.production]
-workers_dev = true
-route = "*"  # 设置路由规则
